@@ -2,4 +2,5 @@
 
 $command = $_GET['command']."Command";
 require $command.'.php';
-new $command();
+$frontCommand = new $command();
+$frontCommand->process();

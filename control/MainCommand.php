@@ -5,7 +5,7 @@ require 'FrontCommand.php';
 class MainCommand extends FrontCommand {
     
     
-    function __construct() {
+    function process() {
         parent::forward();
     }
     

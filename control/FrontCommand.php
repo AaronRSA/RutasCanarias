@@ -2,6 +2,12 @@
 
 abstract class FrontCommand {
     
+    protected abstract function process();
+    
+    protected abstract function url();
+    
+    protected abstract function fields();
+    
     protected function forward() {
         extract($_POST);
         $ch = curl_init();
@@ -11,10 +17,6 @@ abstract class FrontCommand {
         curl_exec($ch);
         curl_close($ch);
     }
-    
-    protected abstract function url();
-    
-    protected abstract function fields();
     
     private function fieldsString($fields) {
         $fields_string = "";
