@@ -18,6 +18,7 @@ abstract class FrontCommand {
     
     private function fieldsString($fields) {
         $fields_string = "";
+        if (!is_array($fields)) return "";
         foreach ($fields as $key => $value) {
             $fields_string .= $key . '=' . $value . '&';
         }
