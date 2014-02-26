@@ -2,12 +2,13 @@
 
 require 'DatabaseConnection.php';
 
-abstract class DataLoader extends DatabaseConnection{
+abstract class DataLoader {
 
     protected function abstractFind() {
-        parent::connect();
+        $connection = DatabaseConnection::getInstance();
+        $connection->connect();
         $object = $this->doLoad(mysql_query($this->statement()));
-        parent::closeConnection();
+        $connection->closeConnection();
         return $object;
     }
 

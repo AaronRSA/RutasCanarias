@@ -2,23 +2,33 @@
 
 class DatabaseConnection {
     
-    private static $isConnected = false;
-    private static $numberOfConnections = 0;
+    private static $instance;
     
-    protected function connect() {
-        self::$numberOfConnections++;
-        if (self::$isConnected) return;
+    private $isConnected = false;
+    private $numberOfConnections = 0;
+    
+    private function __construct() {
+    }
+    
+    public static function getInstance() {
+        if (self::$instance == null) self::$instance = new DatabaseConnection ();
+        return self::$instance;
+    }
+    
+    public function connect() {
+        $this->numberOfConnections++;
+        if ($this->isConnected) return;
         mysql_connect("mysql16.000webhost.com", "a5599462_grupoa", "grupoa7");
         mysql_select_db("a5599462_grupoa");
         mysql_query("SET NAMES 'utf8'");
-        self::$isConnected = true;
+        $this->isConnected = true;
         $this->didIOpenTheConnection = true;
     }
     
-    protected function closeConnection() {
-        if (--self::$numberOfConnections != 0) return;
+    public function closeConnection() {
+        if (--$this->numberOfConnections != 0) return;
         mysql_close();
-        self::$isConnected = false;
+        $this->isConnected = false;
         $this->didIOpenTheConnection = false;
     }
 }
